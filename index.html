@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>Carta</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            background-color: #f0b652;
+            color: #fff;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            animation: buttonAnimation 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes buttonAnimation {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .text-section,
+        .images-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hidden-section {
+            display: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        .content {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .letter {
+            text-align: left;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .images-box {
+            max-width: 300px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+        }
+
+        .images-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            animation: imageAnimation 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes imageAnimation {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        #loveButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 30px;
+            background: none;
+            border: none;
+            color: #f0b652;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .heart {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: #f0b652;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: heartAnimation 2s ease-out;
+        }
+
+        @keyframes heartAnimation {
+            to {
+                transform: translateY(-200px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #ffc107;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: confettiAnimation 5s ease-out;
+        }
+
+        @keyframes confettiAnimation {
+            to {
+                transform: translateY(200px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .text-section {
+                align-items: flex-start; 
+            }
+
+            .letter {
+                padding: 10px;
+            }
+
+            .images-box {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="img/2.mp4" type="audio/mp4">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <div class="container">
+        <div class="text-section">
+            <button id="revealButton">Abrir Carta</button>
+            <div class="hidden-section" id="hiddenSection">
+                <div class="content">
+                    <div class="letter">
+                        <h1>Feliz san Valentín Diego!,</h1>
+                        <p>Nuestro primer san Valentín, un poco emocionada por esto, nunca habia hecho una carta asi (ese no es el punto). Quisiera decirte lo agradecida que estoy por esto y cada momento juntos.</p>
+                        <p>La palabras no me dan para expresar o escribir lo que siento, es verdad que ha tu lado he aprendido muchas cosas, tanto buenas como malas, pero lo improtante es que siempre encontramos una manera de estar juntos.</p>
+                        <p>Recordando, los buenos momentos que pasamos juntos y que me encanta cuando si das lo mejor de ti, cuando eres considerado, y cuando haces que valga la pena luchar por esto.</p>
+                        <p>Estoy orgullosa de ti, de la persona que eres y de la persona que te sigues convirtiendo. Nunca pierdas esa chispa que te caracteriza, y convierte tu dolor en fortaleza.<p>
+                        <p>Sabes que puedes hacer lo que te propongas, con dedicación, amor y pasión. Gracias por todos estos momentos juntos, que hacen de mi vida algo mejor.</p>
+                        <p>Gracias por ser tú, por amarme y por aportar siempre esa chispa de alegria. Eres el mejor regalo de este san valentín y porque hasta el silencio es musica si es contigo con quien bailo.</p>
+                        <p>Te amo, Juneilis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="images-section">
+            <div class="images-box" id="imageBox">
+            </div>
+        </div>
+    </div>
+    <button id="loveButton">💛</button>
+
+    <script>
+        // ... (el resto de tu script)
+        const revealButton = document.getElementById('revealButton');
+        const hiddenSection = document.getElementById('hiddenSection');
+        const loveButton = document.getElementById('loveButton');
+        const imageBox = document.getElementById('imageBox');
+        let currentImageIndex = 0;
+        const images = ['img/1.jpg', 'img/5.jpg', 'img/6.jpg', 'img/7.jpg'];
+
+        revealButton.addEventListener('click', () => {
+            hiddenSection.style.display = 'flex';
+            revealButton.style.display = 'none';
+            loadImages();
+            createConfetti(); 
+        });
+
+        loveButton.addEventListener('click', () => {
+            createHearts();
+            createConfetti();
+        });
+
+        function loadImages() {
+            setInterval(() => {
+                imageBox.innerHTML = ''
+                const img = document.createElement('img');
+                img.src = images[currentImageIndex];
+                imageBox.appendChild(img);
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+            }, 2000);
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                document.body.appendChild(heart);
+
+                const size = Math.random() * 30 + 10 + 'px';
+                heart.style.width = size;
+                heart.style.height = size;
+
+                const positionX = Math.random() * window.innerWidth + 'px';
+                const positionY = Math.random() * window.innerHeight + 'px';
+                heart.style.left = positionX;
+                heart.style.top = positionY;
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 30; i++) { // Más confeti
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                document.body.appendChild(confetti);
+
+                const size = Math.random() * 10 + 5 + 'px';
+                confetti.style.width = size;
+                confetti.style.height = size;
+
+                const positionX = Math.random() * window.innerWidth + 'px';
+                const positionY = Math.random() * window.innerHeight + 'px';
+                confetti.style.left = positionX;
+                confetti.style.top = positionY;
+
+                const rotate = Math.random() * 360 + 'deg';
+                confetti.style.transform = `rotate(${rotate})`;
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
